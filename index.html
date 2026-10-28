@@ -15,8 +15,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="./style.css?v=2.0"/>
-<link rel="stylesheet" href="./styles-v2.css?v=2.0"/>
+<link rel="stylesheet" href="./style.css?v=2.1.4-20261028"/>
+<link rel="stylesheet" href="./styles-v2.css?v=2.1.4-20261028"/>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}
 </script>
@@ -28,6 +28,18 @@
 <div id="toastRoot" class="toast-root" aria-live="polite"></div>
 <div id="musicMini" class="music-mini"><span>♫</span><span class="mini-song"></span><button class="mini-play" data-music-action="toggle">▶</button><button data-tab="music">لیست</button></div>
 <button type="button" id="installFloat" class="install-float" data-install="1" hidden>⬇ نصب اپ MobinGYM</button>
-<script src="./app.js?v=2.0" defer></script>
+<script>
+(function(){
+ const timeout=setTimeout(function(){
+  const app=document.getElementById('app'),loader=document.getElementById('loader');
+  if(app?.querySelector('.app-shell')){loader?.classList.add('hide');return;}
+  loader?.classList.add('hide');
+  if(app)app.innerHTML='<main dir="rtl" style="min-height:85vh;display:grid;place-items:center;padding:24px;background:#050c1d;color:#f1f8ff;font-family:Vazirmatn,Tahoma,sans-serif"><section style="max-width:440px;padding:28px;border:1px solid #2375bc;border-radius:24px;background:linear-gradient(140deg,#0a2b54,#081325);text-align:center"><div style="font-size:40px">🏋️</div><h2>اپ هنوز کامل بارگذاری نشده</h2><p style="line-height:2.1;color:#bad8f6">اتصال به فایل‌های سایت برقرار نشده یا نسخه قدیمی در کش است. سوابق تمرین پاک نشده‌اند.</p><a href="./?reload=20261028-4" style="display:block;background:#197bdf;color:white;text-decoration:none;border-radius:13px;padding:12px;font-weight:bold">تلاش دوباره</a></section></main>';
+ },8500);
+ window.addEventListener('error',function(e){console.error('MobinGYM startup error:',e.message)},true);
+ window.addEventListener('load',function(){setTimeout(function(){if(document.querySelector('#app .app-shell'))document.getElementById('loader')?.classList.add('hide')},700)});
+})();
+</script>
+<script src="./app.js?v=2.1.4-20261028" defer></script>
 </body>
 </html>
