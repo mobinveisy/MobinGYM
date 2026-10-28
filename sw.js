@@ -1,0 +1,8 @@
+/* MobinGYM 2.0 service worker — offline app shell and Push handler. */
+const VERSION='mobingym-shell-2.0.1';
+const SHELL=['./','./index.html','./style.css','./styles-v2.css','./app.js','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
+self.addEventListener('install',event=>event.waitUntil(caches.open(VERSION).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting())));
+self.addEventListener('activate',event=>event.waitUntil(Promise.all([caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('mobingym-shell-')&&key!==VERSION).map(key=>caches.delete(key)))),self.clients.claim()])));
+self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;const url=new URL(event.request.url);if(url.origin!==self.location.origin)return;event.respondWith(fetch(event.request).then(response=>{if(response.ok){const cloned=response.clone();caches.open(VERSION).then(cache=>cache.put(event.request,cloned)).catch(()=>{})}return response}).catch(()=>caches.match(event.request).then(resp=>resp||caches.match('./index.html'))))});
+self.addEventListener('push',event=>{let data={title:'MobinGYM',body:'وقت تمرین رسیده!'};try{if(event.data)data={...data,...event.data.json()}}catch(e){}event.waitUntil(self.registration.showNotification(data.title,{body:data.body,icon:'./icon-192.png',badge:'./icon-192.png',tag:'mobingym-push',data:{url:'./'}}))});
+self.addEventListener('notificationclick',event=>{event.notification.close();event.waitUntil(self.clients.matchAll({type:'window',includeUncontrolled:true}).then(clients=>{if(clients.length)return clients[0].focus();return self.clients.openWindow('./')}))});

@@ -1,0 +1,17 @@
+{
+ "name":"MobinGYM — برنامه شخصی باشگاه",
+ "short_name":"MobinGYM",
+ "description":"برنامه هوشمند تمرین، تغذیه و سوابق شخصی",
+ "start_url":"./",
+ "scope":"./",
+ "display":"standalone",
+ "background_color":"#050914",
+ "theme_color":"#071426",
+ "lang":"fa",
+ "dir":"rtl",
+ "orientation":"any",
+ "icons":[
+  {"src":"./icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+  {"src":"./icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+ ]
+}
